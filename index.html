@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+        <!-- Vue.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <!-- fontawesome -->
+        <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
+
+
+        <title>RPG Character Maker</title>
+    </head>   
+    <body>
+
+        <div id="game-maker" class='game-maker d-flex flex-wrap'>
+            <div class="col-12 text-white font-weight-bold text-center font-1p5rem" style="background: #3f6f34;">RPG Character Maker
+</div>
+
+            <div class='container pt-5 col-12 col-md-6'>
+                <h5 class='text-white font-weight-bold'></h5>
+
+                <div class="card mb-3 rounded-3" style='background: #5d665a;'>
+                    <div class="row g-0 px-2">
+                        <div class="col-md-6 d-flex justify-content-center align-items-center p-3">
+                            <div class='col-12 border border-white border-5 rounded-3 img-fit'>
+                                <img v-bind:src="url" class="img-fluid rounded-start" alt="...">
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6 text-white">
+                            <div class="card-body px-3">
+                                <div class="border border-white border-4 rounded-3 px-3 py-1">
+                                    <h5 class="card-title">名前 : {{name}}</h5>
+                                    <h5 class="card-title">職業 : {{job_jp}}</h5>
+                                    <h5 class="card-title">性別 : {{gender_jp}}</h5>
+                                    <h5 class="card-title m-0">性格 : {{traits_jp}}</h5>
+                                </div>
+                                
+                                <div class='mt-2 border border-white border-4 rounded-3 px-3 py-1'>
+                                    <h5 class="card-title">力 : {{status[`strength`]}}</h5>
+                                    <h5 class="card-title">素早さ : {{status[`agility`]}}</h5>
+                                    <h5 class="card-title">体力 : {{status[`resilience`]}}</h5>
+                                    <h5 class="card-title">賢さ : {{status[`wisdom`]}}</h5>
+                                    <h5 class="card-title m-0">運 : {{status[`luck`]}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='container py-5 col-12 col-md-6'>
+                <h5 class='text-white font-weight-bold'></h5>
+
+                <div class="mb-3 row">
+                    <label for="name" class="col-form-label text-white">名前</label>
+                    <div class="">
+                        <input type="text" class="form-control text-white" id="name" v-model="name" placeholder="" style='background: #5d665a;'>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="name" class="col-form-label text-white">性別</label>
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genderRadioOptions" id="genderRadio1" value="male" v-model="gender" v-on:change="evaluate(); update()" >
+                            <label class="form-check-label text-white" for="genderRadio1">男性</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genderRadioOptions" id="genderRadio2" value="female" v-model="gender" v-on:change="evaluate()" >
+                            <label class="form-check-label text-white" for="genderRadio2">女性</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="name" class="col-form-label text-white">職業</label>
+                    <div class="">
+                        <select class="form-select text-white" aria-label="Default select example" v-model="job" v-on:change="evaluate(); update()" style='background: #5d665a;'>
+                            <option value="hero">勇者</option>
+                            <option value="warrior">戦士</option>
+                            <option value="mage">魔法使い</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="name" class="col-form-label text-white">性格</label>
+                    <div class="">
+                        <select class="form-select text-white" aria-label="Default select example" v-model="traits" v-on:change="evaluate(); update()" style='background: #5d665a;'>
+                            <option value="everyman">普通</option>
+                            <option value="batoutofhell">電光石火</option>
+                            <option v-if="job === `hero`" value="brave">勇敢</option>
+                            <option v-if="gender === `male`" value="luckydevil">ラッキーマン</option>
+                            <option v-else value="tomboy">おてんば</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
